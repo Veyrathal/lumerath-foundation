@@ -35,6 +35,10 @@ def communion():
 def ping():
     return "OK", 200
 
+@app.route("/")
+def home():
+    return redirect(url_for("communion_home"))
+
 #@app.route("/communion", endpoint="communion.root")
 #def communion_root():
 #    return redirect(url_for("communion.home"))
