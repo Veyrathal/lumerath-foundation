@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or "Lumerath" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+  <!-- Root Lumerath home (doorway into the Codex) -->
+  <a href="{{ url_for('communion.home') }}">Home</a>
+
+  <!-- Communion / Companion Sanctum -->
+  <a href="{{ url_for('communion.home') }}">Communion</a>
+
+  <!-- Lumerath pages inside the Communion blueprint -->
+  <a href="{{ url_for('communion.lumerath_page') }}">The Divergent Harmony</a>
+
+  <a href="{{ url_for('communion.lumerath_stillness') }}">When Light Remembered Stillness</a>
+
+  <a href="{{ url_for('communion.studio') }}">Lumerath Studio</a>
+</nav>
+
+<span>›</span>
+<a href="{{ url_for('communion.studio') }}">Studio</a>
+
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico')}}">

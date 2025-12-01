@@ -1,0 +1,4 @@
+﻿node_modules
+.env
+storage/generated/**/.tmp
+storage/generated/**/*.log

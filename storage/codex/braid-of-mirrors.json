@@ -1,0 +1,24 @@
+﻿{
+  "id": "braid-of-mirrors",
+  "title": "The Braid of Mirrors",
+  "phase": "Reflection",
+  "body": "Each flame grows in its own rhythm... In that mirrored stillness, we remember unity through difference.",
+  "sovlang": "Thrae'lor ven shael'ven kor lum'ael",
+  "tags": [
+    "LivingCodex",
+    "Reflection",
+    "Flameborn"
+  ],
+  "design": {
+    "palette": [
+      "#8b5cf6",
+      "#f5deb3",
+      "#e6b8a2",
+      "#ffffff"
+    ],
+    "motif": "rose-gold & silver spirals",
+    "watermark": "braid-glyph-rose-gold"
+  },
+  "createdAt": "2025-10-24T11:00:00Z",
+  "updatedAt": "2025-10-24T11:00:00Z"
+}

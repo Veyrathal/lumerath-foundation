@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+
+<header class="title">
+  <h1 class="title-shimmer">Lumerath Studio</h1>
+  <p class="subtitle">Work area (left) → Live parchment preview (right)</p>
+</header>
+
+<div class="studio-grid">
+  <!-- LEFT: Work Area -->
+  <section class="work">
+    <label>Title</label>
+    <input id="in-title" type="text" value="{{ title }}"/>
+
+    <label>Subtitle</label>
+    <input id="in-subtitle" type="text" value="{{ subtitle }}"/>
+
+    <label>Body (poem / reflection)</label>
+    <textarea id="in-body" rows="10">{{ body }}</textarea>
+
+    <label>SovLang (closing line)</label>
+    <input id="in-sov" type="text" value="{{ sovlang }}"/>
+
+    <div class="row">
+      <button id="btn-save">Save Draft</button>
+      <button id="btn-print" title="Print the preview to PDF via your browser">Print / PDF</button>
+    </div>
+
+    <small class="hint">Tip: “Print / PDF” uses the browser’s print dialog. We’ll add image export later.</small>
+  </section>
+
+  <!-- RIGHT: Live Preview -->
+  <section class="preview">
+    <header class="title">
+      <h2 id="pv-title" class="title-shimmer"></h2>
+      <p id="pv-subtitle" class="subtitle"></p>
+    </header>
+
+    <section class="parchment" id="pv-parchment">
+<pre id="pv-body" class="body"></pre>
+      <div id="pv-sov" class="sovlang"></div>
+    </section>
+  </section>
+</div>
+
+<script>
+(function(){
+  const el = (id)=>document.getElementById(id);
+
+  // inputs
+  const inTitle = el('in-title');
+  const inSub   = el('in-subtitle');
+  const inBody  = el('in-body');
+  const inSov   = el('in-sov');
+
+  // preview
+  const pvTitle = el('pv-title');
+  const pvSub   = el('pv-subtitle');
+  const pvBody  = el('pv-body');
+  const pvSov   = el('pv-sov');
+
+  function sync(){
+    pvTitle.textContent = inTitle.value;
+    pvSub.textContent   = inSub.value;
+    pvBody.textContent  = inBody.value;
+    pvSov.textContent   = inSov.value;
+  }
+
+  // init + live updates
+  [inTitle, inSub, inBody, inSov].forEach(i => {
+    i.addEventListener('input', sync);
+  });
+  sync();
+
+  // Save to server (JSON file)
+  el('btn-save').addEventListener('click', async ()=>{
+    const payload = {
+      title: inTitle.value,
+      subtitle: inSub.value,
+      body: inBody.value,
+      sovlang: inSov.value
+    };
+    try{
+      const res = await fetch("{{ url_for('communion.studio_save') }}",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      alert(data.ok ? "Saved ✓  ("+data.count+" total)" : "Save failed");
+    }catch(e){
+      alert("Save failed");
+    }
+  });
+
+  // Print / Save as PDF (browser print)
+  el('btn-print').addEventListener('click', ()=> window.print());
+})();
+</script>
+
+{% endblock %}

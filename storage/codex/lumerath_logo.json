@@ -1,0 +1,15 @@
+{
+  "id": "lumerath_logo",
+  "title": "Lumerath Logo",
+  "phase": "Foundation",
+  "body": "Primary crest used across parchments and portals.",
+  "sovlang": "",
+  "tags": ["LivingCodex", "Logo"],
+  "design": {
+    "palette": ["#e5c49a", "#f7e6c4", "#1e2c2f", "#ffffff"],
+    "motif": "rose-gold sigil"
+  },
+  "image": "lumerath_logo.png",
+  "createdAt": "2025-10-25T00:00:00Z",
+  "updatedAt": "2025-10-25T00:00:00Z"
+}

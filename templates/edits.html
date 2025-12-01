@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Edit · {{ stem }}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <style>
+    body{font:15px/1.4 system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:#0b1020;color:#eef2ff}
+    header{padding:14px 18px;border-bottom:1px solid #1a2140;display:flex;gap:12px;align-items:center}
+    a{color:#9ecbff;text-decoration:none}
+    main{display:grid;grid-template-columns:1fr 420px;gap:14px;padding:14px}
+    textarea{width:100%;height:70vh;background:#0e1530;color:#e9eeff;border:1px solid #1a2140;border-radius:8px;padding:12px;font:13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .panel{background:#0e1530;border:1px solid #1a2140;border-radius:8px;padding:12px}
+    .btn{appearance:none;border:1px solid #3949ab;background:#1b2370;color:#fff;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer}
+    .btn.secondary{background:#17203f;border-color:#2a355f}
+    .row{display:flex;gap:10px;align-items:center}
+    img{max-width:100%;border-radius:8px;border:1px solid #1a2140;background:#050814}
+    .muted{color:#a9b3d1;font-size:12px}
+  </style>
+</head>
+<body>
+<header>
+  <a href="{{ url_for('library') }}">← Library</a>
+  <strong>Edit:</strong> <code>{{ stem }}</code>
+</header>
+<main>
+  <form class="panel" id="edit-form" method="post" action="{{ url_for('save', stem=stem) }}">
+    <textarea name="content" id="content">{{ data }}</textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" type="submit">Save</button>
+      <a class="btn secondary" href="{{ url_for('preview', json=stem) }}">Preview</a>
+      <button class="btn secondary" formaction="{{ url_for('generate', stem=stem) }}" formmethod="post">Generate image</button>
+    </div>
+  </form>
+
+  <div class="panel">
+    <div class="muted">Current image (if any):</div>
+    <div style="margin-top:8px">
+      <img src="{{ url_for('fetch_asset', filename=stem + '.png') }}" onerror="this.replaceWith(Object.assign(document.createElement('div'),{textContent:'— no image found —',className:'muted'}))">
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Preview • {{ title }}</title>
+  <a href="{{ url_for('edit', stem=stem) }}" style="float:right;color:#9ecbff">Edit</a>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html,body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial}
+    header{padding:14px 18px;border-bottom:1px solid #e5e5e5;background:#fafafa}
+    main{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px}
+    @media (max-width: 900px){ main{grid-template-columns:1fr}}
+    .panel{border:1px solid #eee;border-radius:10px;overflow:hidden;background:#fff}
+    .panel h2{margin:0;padding:10px 12px;background:#f6f6f6;border-bottom:1px solid #eee;font-size:14px}
+    .panel .body{padding:12px;max-height:78vh;overflow:auto}
+    pre{white-space:pre-wrap;word-break:break-word;background:#0b1020;color:#e6f3ff;padding:12px;border-radius:8px}
+    img{max-width:100%;height:auto;display:block}
+    .muted{color:#777}
+    .badge{display:inline-block;padding:2px 8px;border:1px solid #ddd;border-radius:999px;font-size:12px;margin-left:8px;color:#444;background:#fff}
+    .row{display:flex;align-items:center;gap:8px}
+    a{color:#0b6dff;text-decoration:none}
+    a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <header class="row">
+    <strong>{{ title }}</strong>
+    {% if stem %}<span class="badge">{{ stem }}</span>{% endif %}
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Codex (JSON)</h2>
+      <div class="body">
+        {% if json_data %}
+          <pre>{{ json_data }}</pre>
+        {% else %}
+          <div class="muted">No JSON found.</div>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Image</h2>
+      <div class="body">
+        {% if img_url %}
+          <img src="{{ img_url }}" alt="preview image">
+        {% else %}
+          <div class="muted">No image found.</div>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+</body>
+</html>

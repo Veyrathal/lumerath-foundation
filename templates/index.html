@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Lumerath • Codex Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html,body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;background:#fafafa}
+    header{padding:16px 18px;border-bottom:1px solid #e9e9e9;background:#fff;position:sticky;top:0}
+    main{padding:18px}
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden}
+    th,td{padding:10px 12px;border-bottom:1px solid #f1f1f1;text-align:left;font-size:14px}
+    th{background:#f8f8f8}
+    tr:last-child td{border-bottom:none}
+    .muted{color:#777}
+    .btn{display:inline-block;font-size:13px;padding:6px 10px;border:1px solid #ddd;border-radius:8px;text-decoration:none;color:#0b6dff;background:#fff}
+    .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+    .yes{background:#1ec765}.no{background:#bbb}
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Codex Library</strong>
+  </header>
+  <td class="muted">
+  </td>
+<section class="upload-wrap">
+  <h2>Upload Portal</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <label>Codex (.json)
+      <input id="codexFile" name="codex" type="file" accept=".json">
+    </label>
+    <label>Image (.png/.jpg/.jpeg/.webp)
+      <input id="imageFile" name="image" type="file" accept=".png,.jpg,.jpeg,.webp">
+    </label>
+    <button type="submit">Upload</button>
+  </form>
+
+  <div id="dropzone" class="dz">
+    Drag & drop a **.json** and its image here (together or one at a time).  
+    If both are sent, the image will be renamed to match the codex stem.
+  </div>
+
+  <ul id="uploadLog" class="log"></ul>
+</section>
+
+<style>
+  .upload-wrap{margin:1rem 0;padding:1rem;border:1px solid #ddd;border-radius:8px;background:#fafafa}
+  .upload-wrap form{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+  .dz{margin-top:0.75rem;padding:1rem;border:2px dashed #bbb;border-radius:8px;background:#fff}
+  .dz.is-over{border-color:#666;background:#f2f6ff}
+  .log{margin-top:0.75rem}
+</style>
+
+<script src="{{ url_for('static', filename='upload.js') }}"></script>
+
+  <main>
+    {% if items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Codex</th>
+          <th>Image</th>
+          <th>Size</th>
+          <th>Modified</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for it in items %}
+        <tr>
+          <td><a href="/codex/{{ it.filename }}">{{ it.filename }}</a></td>
+          <td><span class="dot {{ 'yes' if it.img_name else 'no' }}"></span>
+          <td><span class="muted">{{ it.img_name or '—' }}</span>
+          <td class="muted">{{ it.size }}</td>
+          <td class="muted">{{ it.mtime }}</td>
+          <td>
+            <a class="btn" href="{{ it.preview_url }}">Preview</a>
+            <a class="btn" href="{{ url_for('edit', stem=it.filename | replace('.json', ''))}}">Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="muted">No codex files found yet.</div>
+    {% endif %}
+  </main>
+</body>
+</html>

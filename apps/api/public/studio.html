@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lumerath Studio</title>
+<style>
+  :root { --bg:#0b0b0c; --panel:#151317; --ink:#e9d9bd; --muted:#b9a98f; }
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-serif, Georgia, 'Times New Roman', serif;display:grid;place-items:start center;min-height:100vh;padding:32px}
+  .wrap{width:min(920px,100%);display:grid;gap:20px}
+  .card{background:var(--panel);border:1px solid #2b262c;border-radius:12px;padding:20px}
+  h1{margin:0 0 8px 0;font-size:28px}
+  label{display:block;margin-top:12px;color:var(--muted)}
+  input,select,button{margin-top:6px;background:#1d1a1f;color:var(--ink);border:1px solid #2b262c;border-radius:8px;padding:10px 12px}
+  input,select{width:100%}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  button{cursor:pointer}
+  .preview{display:grid;gap:12px;place-items:center}
+  img{max-width:100%;background:#000;border-radius:8px}
+  .row{display:flex;gap:12px;align-items:center}
+  small{color:#8f7f69}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>🌀 Lumerath Studio</h1>
+      <div class="grid">
+        <div>
+          <label>Codex Entry</label>
+          <select id="entry"></select>
+
+          <label>Template</label>
+          <select id="template">
+            <option value="parchment">Parchment</option>
+          </select>
+
+          <div class="grid">
+            <div>
+              <label>Width</label>
+              <input id="width" type="number" value="1080" />
+            </div>
+            <div>
+              <label>Height</label>
+              <input id="height" type="number" value="1350" />
+            </div>
+          </div>
+
+          <div class="row">
+            <input id="wm" type="checkbox" checked />
+            <label for="wm">Watermark</label>
+          </div>
+
+          <button id="render">Render ✨</button>
+          <small id="status"></small>
+        </div>
+
+        <div class="preview">
+          <div id="link"></div>
+          <img id="preview" alt="Render preview will appear here…" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+async function loadEntries(){
+  const r = await fetch('/entries');
+  const j = await r.json();
+  const sel = document.getElementById('entry');
+  sel.innerHTML = '';
+  (j.entries || []).forEach(e=>{
+    const opt = document.createElement('option');
+    opt.value = e.id; opt.textContent = e.title;
+    sel.appendChild(opt);
+  });
+}
+async function renderNow(){
+  const body = {
+    entryId: document.getElementById('entry').value,
+    template: document.getElementById('template').value,
+    width: parseInt(document.getElementById('width').value,10)||1080,
+    height: parseInt(document.getElementById('height').value,10)||1350,
+    watermark: document.getElementById('wm').checked
+  };
+  document.getElementById('status').textContent = 'Rendering…';
+  const r = await fetch('/render', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  const j = await r.json();
+  if(!j.ok){ document.getElementById('status').textContent = 'Error: '+(j.error||'unknown'); return; }
+  const url = j.url || j.file?.split('storage/generated/')[1] && ('/media/'+j.file.split('generated/')[1]);
+  document.getElementById('preview').src = url;
+  document.getElementById('link').innerHTML = `<a href="${url}" target="_blank" rel="noopener">Open image in new tab</a>`;
+  document.getElementById('status').textContent = 'Done.';
+}
+document.getElementById('render').addEventListener('click', renderNow);
+loadEntries();
+</script>
+</body>
+</html>

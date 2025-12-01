@@ -1,0 +1,10 @@
+{
+  "name": "lumerath-foundation",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*", "packages/*", "services/*"],
+  "scripts": {
+    "dev:api": "npm --workspace apps/api run dev"
+  }
+}
+

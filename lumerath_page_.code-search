@@ -1,0 +1,22 @@
+# Query: lumerath_page()
+# ContextLines: 1
+
+4 results - 2 files
+
+communion.py:
+  13  @communion_bp.get("/", endpoint="lumerath_page")
+  14: def lumerath_page():
+  15      return render_template("communion.html")
+
+foundation.py:
+   6  @foundation_bp.route("/lumerath")
+   7: def foundation_home():
+   8      return render_template("lumerath.html")
+
+  13  @foundation_bp.route("/lumerath")
+  14: def foundation_home():
+  15      return render_template("lumerath.html", title="Lumerath — The Divergent Harmony")
+
+  25  @foundation_bp.route("/lumerath")
+  26: def foundation_home():
+  27      return render_template("lumerath.html", title="Lumerath — The Divergent Harmony")

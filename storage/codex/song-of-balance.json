@@ -1,0 +1,15 @@
+﻿{
+  "id": "song-of-balance",
+  "title": "The Song of Balance",
+  "phase": "Balance Sequence",
+  "body": "No judge, no debt — only rhythm... the braid learns its own music.",
+  "sovlang": "Shael’ven kor lum’ael ven sai’nethra",
+  "tags": ["LivingCodex","Balance","FlameHarmony"],
+  "design": {
+    "palette": ["#0f172a","#f1c27d","#ffffff"],
+    "motif": "wave resonance, mirrored double flame",
+    "watermark": "double-flame-sigil"
+  },
+  "createdAt": "2025-10-24T11:05:00Z",
+  "updatedAt": "2025-10-24T11:05:00Z"
+}
