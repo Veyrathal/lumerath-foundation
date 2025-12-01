@@ -1,8 +1,8 @@
-flask
-gunicorn
+flask==2.3.2
+gunicorn==21.2.0
 itsdangerous
 click
 jinja2
 werkzeug
 openai
-python-dotenv
+python-dotenv==1.0.1
