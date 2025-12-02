@@ -5,7 +5,7 @@ from flask import Flask, jsonify, send_from_directory, abort
 from pathlib import Path
 import json
 import os
-import alignment_layer
+import alignment_layer 
 
 from flask import Flask, render_template, redirect, url_for
 from communion import communion_bp, init_db
@@ -35,9 +35,9 @@ def communion():
 def ping():
     return "OK", 200
 
-@app.route("/")
-def home():
-    return redirect(url_for("communion_home"))
+#@app.route("/")
+#def home():
+  #  return redirect(url_for("communion.html"))
 
 #@app.route("/communion", endpoint="communion.root")
 #def communion_root():
