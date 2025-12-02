@@ -13,16 +13,16 @@ from foundation import foundation_ui
 
 app = Flask(__name__)
 
-@app.route("/")
-def lumerath_home():
-    return redirect(url_for("communion.home"))
+#@app.route("/")
+#def lumerath_home():
+#    return redirect(url_for("communion.home"))
 
 app.register_blueprint(communion_bp)
 app.register_blueprint(foundation_ui)
 
-#@app.route("/")
-#def sanctum_root():
-#    return render_template("communion.html")
+@app.route("/")
+def sanctum_root():
+    return render_template("communion.html")
 
 #@app.route("/communion")
 #def communion():
