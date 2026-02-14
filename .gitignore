@@ -2,3 +2,7 @@
 .env
 storage/generated/**/.tmp
 storage/generated/**/*.log
+
+__pycache__/
+*.pyc 
+memory.log
