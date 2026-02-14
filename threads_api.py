@@ -38,10 +38,10 @@ def _save_image(file_storage):
     exif = {}
     # Perceptual hash for “same building, different crop” matching
     try:
-    im = Image.open(path)
-    phash = str(imagehash.phash(im))
+        im = Image.open(path)
+        phash = str(imagehash.phash(im))
     except Exception:
-    phash = None
+        phash = None
     try:
         exif_raw = Image.open(path)._getexif() or {}
         for k,v in exif_raw.items():

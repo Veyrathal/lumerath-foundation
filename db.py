@@ -40,6 +40,12 @@ def init_db():
       sha256 TEXT,
       exif_json TEXT
     );
+                      
+    CREATE TABLE IF NOT EXISTS memory_summary (
+    guest_id TEXT PRIMARY KEY,
+    summary TEXT
+    );
+                  
 
     /* fast lookups for continuity chains by SHA */
     CREATE INDEX IF NOT EXISTS idx_assets_sha ON assets(sha256);
