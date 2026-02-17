@@ -11,7 +11,7 @@ from flask import Flask, render_template, redirect, url_for
 from communion import communion_bp, init_db
 from foundation import foundation_ui
 from lumerath_api import lumerath_api
-
+from threads_api import bp as threads_bp
 
 app = Flask(__name__)
 
@@ -21,7 +21,9 @@ app = Flask(__name__)
 
 app.register_blueprint(communion_bp)
 app.register_blueprint(foundation_ui)
-app.register_blueprint(lumerath_api)
+app.register_blueprint(lumerath_api, url_prefix="/api")
+alignment_layer.apply_alignment_layer(app)
+app.register_blueprint(threads_bp)
 
 
 @app.route("/")

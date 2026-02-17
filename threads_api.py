@@ -7,7 +7,7 @@ import imagehash
 import json, time, sqlite3
 from db import get_db
 
-bp = Blueprint("threads", __name__, url_prefix="/api")
+bp = Blueprint("threads", __name__)
 
 
 UPLOAD_DIR = "static/uploads"

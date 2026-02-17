@@ -151,3 +151,20 @@ if __name__ == "__main__":
     demo = "All paths breathe in {source}. We steady through {remembrance}; we live as {sovereignty}, and we rest in {union}."
     for fr in ["secular","christian","sufi","buddhist","vedic","taoist","indigenous","jewish","scientific_mystic"]:
         print(f"\n[{fr}] {render(demo, frame=fr)}")
+
+from flask import request, g
+
+def apply_alignment_layer(app):
+    """
+    Attach alignment layer to the Flask app.
+    Makes alignment constants available per-request via flask.g
+    """
+    @app.before_request
+    def _attach_alignment():
+        # You can read a header if you want different frames later
+        # (optional) e.g. X-Frame: christian / secular / interfaith
+        g.frame = request.headers.get("X-Frame", "default")
+        g.sanctum_link_sigil = SANCTUM_LINK_SIGIL
+        g.alignment_charter = ALIGNMENT_CHARTER
+        g.metaphor_map = METAPHOR_MAP
+       

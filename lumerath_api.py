@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from db import get_db
 import json
 
-lumerath_api = Blueprint("lumerath_api", __name__, url_prefix="/api")
+lumerath_api = Blueprint("lumerath_api", __name__,)
 
 def get_guest_id():
     guest_id = request.headers.get("X-Sanctum-Guest")
